@@ -204,11 +204,15 @@ fn main() {
         if is_zended(&file_path) {
             let target_file = decode(&file_path, &args);
             // rename
-            println!(
-                "rename {} to {}",
+            fs::rename(
                 target_file.display().to_string().replace(".php", ".dc.php"),
                 target_file.display().to_string(),
-            );
+            ).unwrap();
+            // println!(
+            //     "rename {} to {}",
+            //     target_file.display().to_string().replace(".php", ".dc.php"),
+            //     target_file.display().to_string(),
+            // );
 
             pb.set_message(format!("{}", file_path.display().to_string()));
         } else {
