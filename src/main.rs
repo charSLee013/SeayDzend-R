@@ -150,7 +150,7 @@ pub fn decode(file_path: &std::path::PathBuf, args: &Args) -> std::path::PathBuf
             file_path.display().to_string(),
             target_file.display().to_string(),
         ])
-        .spawn()
+        .output()
     {
         Ok(_) => {
             // println!("status: {}", output.status);
