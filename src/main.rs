@@ -141,7 +141,7 @@ pub fn copy_file_to_other(
 }
 
 /// Decrypting php files
-pub fn decode(file_path: &std::path::PathBuf, args: &Args) {
+pub fn decode(file_path: &std::path::PathBuf, args: &Args) -> std::path::PathBuf {
     let exe_file = args.exe.display().to_string();
     let target_file = replace_path(file_path, &args.input, &args.output);
 
@@ -161,6 +161,8 @@ pub fn decode(file_path: &std::path::PathBuf, args: &Args) {
             // println!("Error: {}",err.to_string());
         }
     }
+
+    target_file
 }
 
 fn main() {
@@ -200,7 +202,14 @@ fn main() {
         // );
 
         if is_zended(&file_path) {
-            decode(&file_path, &args);
+            let target_file = decode(&file_path, &args);
+            // rename
+            println!(
+                "rename {} to {}",
+                target_file.display().to_string().replace(".php", ".dc.php"),
+                target_file.display().to_string(),
+            );
+
             pb.set_message(format!("{}", file_path.display().to_string()));
         } else {
             copy_file_to_other(&file_path, &args.input, &args.output);
