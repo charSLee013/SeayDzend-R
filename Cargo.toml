@@ -1,8 +1,13 @@
 [package]
-name = "SeayDzend-R"
+name = "seay_dzend_r"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+clap = { version = "4.0.26", features = ["derive"] }
+scan_dir = "0.3.3"
+indicatif = "0.17.2"
+rand = "0.8.5"
+console = "0.15.2"
