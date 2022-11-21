@@ -203,16 +203,28 @@ fn main() {
 
         if is_zended(&file_path) {
             let target_file = decode(&file_path, &args);
-            // rename
-            fs::rename(
-                target_file.display().to_string().replace(".php", ".dc.php"),
-                target_file.display().to_string(),
-            ).unwrap();
-            // println!(
-            //     "rename {} to {}",
-            //     target_file.display().to_string().replace(".php", ".dc.php"),
-            //     target_file.display().to_string(),
-            // );
+
+            // rename decode file
+            let decode_file = std::path::PathBuf::from(
+                target_file.display().to_string().replace(".php", ".de.php"),
+            );
+            if decode_file.exists() {
+                // println!(
+                //     "rename {} to {}",
+                //     decode_file.display().to_string(),
+                //     target_file.display().to_string(),
+                // );
+
+                match fs::rename(
+                    decode_file.display().to_string(),
+                    target_file.display().to_string(),
+                ) {
+                    Ok(_) => {}
+                    Err(_) => {
+                        println!("Cannot rename file {}", target_file.display().to_string())
+                    }
+                }
+            }
 
             pb.set_message(format!("{}", file_path.display().to_string()));
         } else {
